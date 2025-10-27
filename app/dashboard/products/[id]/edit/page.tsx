@@ -18,6 +18,7 @@ export default function EditProductPage() {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState("")
+  const [sold_price, setSoldPrice] = useState("")
   const [target_price, setTargetPrice] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -47,6 +48,7 @@ export default function EditProductPage() {
       setDescription(data.description)
       setPrice(data.bought_price.toString())
       setTargetPrice(data.target_price.toString())
+      setSoldPrice(data.sold_price !== null ? data.sold_price.toString() : "")
     } catch (err) {
       setError("Failed to load product")
     } finally {
@@ -65,6 +67,7 @@ export default function EditProductPage() {
         description,
         bought_price: Number.parseFloat(price),
         target_price: Number.parseInt(target_price, 10),
+        sold_price: Number.parseFloat(sold_price),
       })
       router.push("/dashboard")
     } catch (err) {
@@ -184,6 +187,21 @@ export default function EditProductPage() {
                     value={target_price}
                     onChange={(e) => setTargetPrice(e.target.value)}
                     required
+                    className="bg-background text-foreground"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="sold_price" className="text-card-foreground">
+                    Sold Price
+                  </Label>
+                  <Input
+                    id="sold_price"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="0.00"
+                    value={sold_price}
+                    onChange={(e) => setSoldPrice(e.target.value)}
                     className="bg-background text-foreground"
                   />
                 </div>

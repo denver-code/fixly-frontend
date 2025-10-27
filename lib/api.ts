@@ -11,6 +11,7 @@ export interface Product {
   description: string
   bought_price: number
   target_price: number
+  sold_price: number
 }
 
 export interface ProductCreate {
@@ -25,6 +26,7 @@ export interface ProductUpdate {
   description?: string
   bought_price?: number
   target_price?: number
+  sold_price?: number
 }
 
 class ApiClient {

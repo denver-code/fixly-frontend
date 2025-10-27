@@ -104,6 +104,7 @@ export default function DashboardPage() {
                     <th className="px-6 py-4 text-left text-sm font-semibold text-muted-foreground">DESCRIPTION</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold text-muted-foreground">BOUGHT PRICE</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold text-muted-foreground">TARGET PRICE</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-muted-foreground">SOLD PRICE</th>
                     <th className="px-6 py-4 text-right text-sm font-semibold text-muted-foreground">ACTIONS</th>
                   </tr>
                 </thead>
@@ -114,6 +115,16 @@ export default function DashboardPage() {
                       <td className="px-6 py-4 text-sm text-muted-foreground">{product.description}</td>
                       <td className="px-6 py-4 text-sm text-card-foreground">£{product.bought_price}</td>
                       <td className="px-6 py-4 text-sm text-card-foreground">£{product.target_price}</td>
+                      <td className="px-6 py-4 text-sm text-card-foreground">
+                        {product.sold_price !== null ? `£${product.sold_price}` : "—"}
+                        {product.sold_price !== null && product.target_price !== null && (
+                          product.sold_price < product.target_price ? (
+                            <span className="text-red-500">▼</span>
+                          ) : (
+                            <span className="text-green-500">▲</span>
+                          )
+                        )}
+                      </td>
                       <td className="px-6 py-4 text-right">
                         <div className="flex justify-end gap-2">
                           <Link href={`/dashboard/products/${product.id}/edit`}>
