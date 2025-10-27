@@ -12,6 +12,7 @@ export interface Product {
   bought_price: number
   target_price: number
   sold_price: number
+  images: { is_main: boolean; url: string }[] | null
 }
 
 export interface ProductCreate {
@@ -117,6 +118,20 @@ class ApiClient {
       headers: this.getAuthHeader(),
     })
     if (!response.ok) throw new Error("Failed to delete product")
+  }
+
+  async getImageUrl(imageUrl: string): Promise<string | null> {
+    try {
+      const response = await fetch(imageUrl, {
+        headers: this.getAuthHeader(),
+      })
+      if (!response.ok) throw new Error("Failed to fetch image")
+      const blob = await response.blob()
+      return URL.createObjectURL(blob)
+    } catch (err) {
+      console.error("Image fetch error:", err)
+      return null
+    }
   }
 }
 
